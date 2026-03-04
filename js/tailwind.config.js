@@ -5,7 +5,7 @@
         extend: {
           colors: {
             ink: '#0a0a0a',
-            ivory: '#f5f0e8',
+            ivory: 'red',
             gold: 'skyblue',
             'gold-light': 'red',
             mist: '#1a1a1a',
