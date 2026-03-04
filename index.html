@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Varmah Layee Dulleh — Full Stack Developer</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Playfair Display + DM Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    // Tailwind config
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0a0a0a',
+            ivory: '#f5f0e8',
+            gold: '#c9a84c',
+            'gold-light': '#e2c97e',
+            mist: '#1a1a1a',
+            'mist-2': '#242424',
+            slate: '#888888',
+          },
+        fontFamily: {
+          display: ['Playfair Display', 'serif'],
+          mono: ['DM Mono', 'monospace'],
+          body: ['DM Sans', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+<script src="./js/app.js"></script>
+ <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body class="antialiased">
+
+  <!-- ══════════════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-2">
+          <span class="geo-badge bg-gold px-3 py-1 text-ink font-mono text-xs font-medium tracking-widest uppercase">VD</span>
+        </a>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#home"     class="nav-link">Home</a>
+          <a href="#about"    class="nav-link">About</a>
+          <a href="#skills"   class="nav-link">Skills</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#projects" class="nav-link">Work</a>
+          <a href="#contact"  class="nav-link">Contact</a>
+        </div>
+
+        <!-- Right controls -->
+        <div class="flex items-center gap-4">
+          <!-- Dark/Light toggle -->
+          <button id="theme-toggle" aria-label="Toggle theme"
+            class="w-8 h-8 flex items-center justify-center text-slate hover:text-gold transition-colors">
+            <i class="fas fa-sun text-sm" id="theme-icon"></i>
+          </button>
+
+          <!-- Mobile hamburger -->
+          <button id="menu-btn" class="md:hidden w-8 h-8 flex flex-col justify-center gap-1.5" aria-label="Menu">
+            <span class="block h-px bg-ivory transition-all duration-300" id="bar1"></span>
+            <span class="block h-px bg-ivory transition-all duration-300" id="bar2"></span>
+            <span class="block h-px bg-ivory w-1/2 ml-auto transition-all duration-300" id="bar3"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="md:hidden">
+        <div class="flex flex-col gap-1 py-4 border-t border-mist-2">
+          <a href="#home"     class="nav-link py-3 px-2" onclick="closeMobileMenu()">Home</a>
+          <a href="#about"    class="nav-link py-3 px-2" onclick="closeMobileMenu()">About</a>
+          <a href="#skills"   class="nav-link py-3 px-2" onclick="closeMobileMenu()">Skills</a>
+          <a href="#services" class="nav-link py-3 px-2" onclick="closeMobileMenu()">Services</a>
+          <a href="#projects" class="nav-link py-3 px-2" onclick="closeMobileMenu()">Work</a>
+          <a href="#contact"  class="nav-link py-3 px-2" onclick="closeMobileMenu()">Contact</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════ -->
+  <section id="home" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+
+    <!-- Background geometric lines -->
+    <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
+      <!-- Large rotating ring -->
+      <div class="animate-spin-slow absolute -right-48 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-gold/10"></div>
+      <div class="animate-spin-slow absolute -right-36 top-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full border border-gold/5" style="animation-direction: reverse; animation-duration: 18s;"></div>
+      <!-- Grid lines -->
+      <div class="absolute inset-0" style="background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 py-24 w-full">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Left: Text -->
+        <div>
+          <p class="section-label mb-6 animate-fade-up">Available for work · 2025</p>
+
+          <h1 class="font-display font-black leading-none mb-6 animate-fade-up delay-100">
+            <span class="block text-6xl md:text-7xl lg:text-8xl">Varmah</span>
+            <span class="block text-6xl md:text-7xl lg:text-8xl text-gold">Dulleh</span>
+          </h1>
+
+          <div class="flex items-center gap-3 mb-6 animate-fade-up delay-200">
+            <div class="h-px w-12 bg-gold"></div>
+            <p class="font-mono text-sm text-slate tracking-widest uppercase">Full Stack Developer</p>
+          </div>
+
+          <p class="text-slate text-lg leading-relaxed max-w-md mb-10 animate-fade-up delay-300">
+            I craft elegant digital experiences — from pixel-perfect interfaces to bulletproof backend systems. Code is my medium; clarity is my standard.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 mb-12 animate-fade-up delay-500">
+            <a href="#projects"
+              class="geo-badge inline-flex items-center gap-2 bg-gold text-ink px-6 py-3 font-mono text-sm font-medium tracking-wide uppercase hover:bg-gold-light transition-colors">
+              <span>View Work</span>
+              <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#contact"
+              class="inline-flex items-center gap-2 border border-gold/40 text-gold px-6 py-3 font-mono text-sm tracking-wide uppercase hover:bg-gold/10 transition-colors">
+              <span>Contact Me</span>
+            </a>
+          </div>
+
+          <!-- Social links -->
+          <div class="flex items-center gap-6 animate-fade-up delay-700">
+            <a href="#" class="text-slate hover:text-gold transition-colors" aria-label="GitHub">
+              <i class="fab fa-github text-lg"></i>
+            </a>
+            <a href="#" class="text-slate hover:text-gold transition-colors" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in text-lg"></i>
+            </a>
+            <a href="#" class="text-slate hover:text-gold transition-colors" aria-label="Twitter">
+              <i class="fab fa-x-twitter text-lg"></i>
+            </a>
+            <a href="#" class="text-slate hover:text-gold transition-colors" aria-label="Dribbble">
+              <i class="fab fa-dribbble text-lg"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Visual -->
+        <div class="hidden lg:flex justify-center items-center">
+          <div class="relative animate-float">
+            <!-- Outer decorative ring -->
+            <div class="absolute inset-0 rounded-full border border-gold/20 scale-110"></div>
+            <div class="absolute inset-0 rounded-full border border-gold/10 scale-125"></div>
+
+            <!-- Avatar placeholder — replace with <img> -->
+            <div class="relative w-72 h-72 rounded-full overflow-hidden border-2 border-gold/30">
+              <div class="w-full h-full bg-gradient-to-br from-mist-2 via-mist to-ink flex items-center justify-center">
+                <span class="font-display text-8xl font-black text-gold/30">VD</span>
+              </div>
+            </div>
+
+            <!-- Floating tags -->
+            <div class="absolute -top-4 -right-4 geo-badge bg-mist-2 border border-gold/20 px-3 py-1.5 text-xs font-mono text-gold">
+              &lt;React /&gt;
+            </div>
+            <div class="absolute -bottom-4 -left-4 geo-badge bg-mist-2 border border-gold/20 px-3 py-1.5 text-xs font-mono text-gold">
+              Node.js
+            </div>
+            <div class="absolute top-1/2 -right-12 geo-badge bg-mist-2 border border-gold/20 px-3 py-1.5 text-xs font-mono text-gold">
+              PostgreSQL
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in delay-700">
+        <span class="font-mono text-xs text-slate tracking-widest uppercase">Scroll</span>
+        <div class="w-px h-12 bg-gradient-to-b from-gold to-transparent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════════════════ -->
+  <section id="about" class="py-32">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="grid lg:grid-cols-2 gap-20 items-start">
+
+        <!-- Left -->
+        <div class="reveal">
+          <p class="section-label mb-4">Who I Am</p>
+          <h2 class="font-display text-5xl md:text-6xl font-black mb-8 leading-tight">
+            Crafting Code<br />
+            <span class="italic text-gold">with Purpose</span>
+          </h2>
+
+          <p class="text-slate leading-relaxed mb-5">
+            I'm a full-stack developer with 5+ years of experience building scalable web applications — from early-stage startups to enterprise-level systems. My work sits at the intersection of clean engineering and thoughtful design.
+          </p>
+          <p class="text-slate leading-relaxed mb-8">
+            I believe software should be fast, accessible, and maintainable. Every line of code is a decision — and I take each one seriously. When I'm not building, I'm contributing to open-source or writing about web architecture.
+          </p>
+
+          <!-- Experience highlights -->
+          <div class="grid grid-cols-2 gap-4 mb-10">
+            <div class="border border-mist-2 p-5">
+              <div class="font-display text-4xl font-black text-gold mb-1">5+</div>
+              <div class="font-mono text-xs text-slate tracking-wider uppercase">Years Experience</div>
+            </div>
+            <div class="border border-mist-2 p-5">
+              <div class="font-display text-4xl font-black text-gold mb-1">40+</div>
+              <div class="font-mono text-xs text-slate tracking-wider uppercase">Projects Shipped</div>
+            </div>
+            <div class="border border-mist-2 p-5">
+              <div class="font-display text-4xl font-black text-gold mb-1">12+</div>
+              <div class="font-mono text-xs text-slate tracking-wider uppercase">Happy Clients</div>
+            </div>
+            <div class="border border-mist-2 p-5">
+              <div class="font-display text-4xl font-black text-gold mb-1">∞</div>
+              <div class="font-mono text-xs text-slate tracking-wider uppercase">Coffee Consumed</div>
+            </div>
+          </div>
+
+          <a href="#" class="geo-badge inline-flex items-center gap-3 border border-gold/40 text-gold px-6 py-3 font-mono text-sm tracking-wide uppercase hover:bg-gold/10 transition-colors">
+            <i class="fas fa-download text-xs"></i>
+            <span>Download Résumé</span>
+          </a>
+        </div>
+
+        <!-- Right -->
+        <div class="reveal" style="transition-delay: 0.2s;">
+
+          <!-- Education -->
+          <div class="mb-10">
+            <p class="section-label mb-6">Education</p>
+            <div class="space-y-4">
+              <div class="flex gap-5 border-l-2 border-gold pl-5">
+                <div>
+                  <div class="font-medium mb-0.5">BSc Computer Science</div>
+                  <div class="font-mono text-xs text-slate">Massachusetts Institute of Technology · 2018</div>
+                </div>
+              </div>
+              <div class="flex gap-5 border-l-2 border-mist-2 pl-5">
+                <div>
+                  <div class="font-medium mb-0.5">Cloud Architecture Certification</div>
+                  <div class="font-mono text-xs text-slate">AWS Certified Solutions Architect · 2021</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Work history -->
+          <div>
+            <p class="section-label mb-6">Experience</p>
+            <div class="space-y-6">
+              <div class="flex gap-5">
+                <div class="flex-shrink-0 w-10 h-10 bg-mist-2 border border-gold/20 flex items-center justify-center">
+                  <i class="fas fa-building text-gold text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-medium mb-0.5">Senior Full Stack Developer</div>
+                  <div class="font-mono text-xs text-gold mb-1">TechFlow Inc · 2022 — Present</div>
+                  <div class="text-sm text-slate">Led development of a B2B SaaS platform serving 50k+ users. Built microservices with Node.js, React front-end, and PostgreSQL.</div>
+                </div>
+              </div>
+              <div class="flex gap-5">
+                <div class="flex-shrink-0 w-10 h-10 bg-mist-2 border border-mist-2 flex items-center justify-center">
+                  <i class="fas fa-rocket text-slate text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-medium mb-0.5">Backend Engineer</div>
+                  <div class="font-mono text-xs text-slate mb-1">Launchpad Labs · 2019 — 2022</div>
+                  <div class="text-sm text-slate">Designed and deployed REST/GraphQL APIs. Improved query performance by 60% through indexing and caching strategies.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SKILLS
+  ══════════════════════════════════════════════════ -->
+  <section id="skills" class="py-32 bg-mist">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-20 reveal">
+        <p class="section-label mb-4">Expertise</p>
+        <h2 class="font-display text-5xl md:text-6xl font-black mb-4">
+          What I <span class="italic text-gold">Work With</span>
+        </h2>
+        <p class="text-slate max-w-md mx-auto">A curated toolkit refined over years of real-world production work.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Frontend -->
+        <div class="reveal border border-mist-2 p-6">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-8 h-8 bg-gold/10 flex items-center justify-center">
+              <i class="fas fa-code text-gold text-xs"></i>
+            </div>
+            <span class="font-mono text-xs text-gold tracking-widest uppercase">Frontend</span>
+          </div>
+          <div class="space-y-4">
+            <div class="skill-item" data-skill="React" data-pct="92">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">React / Next.js</span>
+                <span class="font-mono text-xs text-slate">92%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="skill-item" data-skill="TypeScript" data-pct="88">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">TypeScript</span>
+                <span class="font-mono text-xs text-slate">88%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="skill-item" data-skill="Tailwind" data-pct="95">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">Tailwind CSS</span>
+                <span class="font-mono text-xs text-slate">95%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="skill-item" data-skill="Vue" data-pct="75">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">Vue.js</span>
+                <span class="font-mono text-xs text-slate">75%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="reveal border border-mist-2 p-6" style="transition-delay: 0.1s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-8 h-8 bg-gold/10 flex items-center justify-center">
+              <i class="fas fa-server text-gold text-xs"></i>
+            </div>
+            <span class="font-mono text-xs text-gold tracking-widest uppercase">Backend</span>
+          </div>
+          <div class="space-y-4">
+            <div class="skill-item" data-pct="90">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">Node.js / Express</span>
+                <span class="font-mono text-xs text-slate">90%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+            <div class="skill-item" data-pct="82">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">Python / FastAPI</span>
+                <span class="font-mono text-xs text-slate">82%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+            <div class="skill-item" data-pct="78">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">GraphQL</span>
+                <span class="font-mono text-xs text-slate">78%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+            <div class="skill-item" data-pct="70">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">Go</span>
+                <span class="font-mono text-xs text-slate">70%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database -->
+        <div class="reveal border border-mist-2 p-6" style="transition-delay: 0.2s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-8 h-8 bg-gold/10 flex items-center justify-center">
+              <i class="fas fa-database text-gold text-xs"></i>
+            </div>
+            <span class="font-mono text-xs text-gold tracking-widest uppercase">Database</span>
+          </div>
+          <div class="space-y-4">
+            <div class="skill-item" data-pct="88">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">PostgreSQL</span>
+                <span class="font-mono text-xs text-slate">88%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+            <div class="skill-item" data-pct="80">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">MongoDB</span>
+                <span class="font-mono text-xs text-slate">80%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+            <div class="skill-item" data-pct="85">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">Redis</span>
+                <span class="font-mono text-xs text-slate">85%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+            <div class="skill-item" data-pct="72">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm">Supabase</span>
+                <span class="font-mono text-xs text-slate">72%</span>
+              </div>
+              <div class="h-px bg-mist-2"><div class="skill-bar-fill"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="reveal border border-mist-2 p-6" style="transition-delay: 0.3s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-8 h-8 bg-gold/10 flex items-center justify-center">
+              <i class="fas fa-wrench text-gold text-xs"></i>
+            </div>
+            <span class="font-mono text-xs text-gold tracking-widest uppercase">Tools</span>
+          </div>
+          <!-- Badges -->
+          <div class="flex flex-wrap gap-2">
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Docker</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">AWS</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Kubernetes</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">CI/CD</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Git</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Terraform</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Jest</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Figma</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Vercel</span>
+            <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-slate hover:text-gold transition-colors cursor-default">Linux</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SERVICES
+  ══════════════════════════════════════════════════ -->
+  <section id="services" class="py-32">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6 reveal">
+        <div>
+          <p class="section-label mb-4">What I Offer</p>
+          <h2 class="font-display text-5xl md:text-6xl font-black leading-tight">
+            Services<br />
+            <span class="italic text-gold">& Solutions</span>
+          </h2>
+        </div>
+        <p class="text-slate max-w-xs md:text-right">Delivering end-to-end digital solutions tailored to your needs.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- Service 1 -->
+        <div class="service-card bg-mist p-8 reveal">
+          <div class="w-12 h-12 bg-gold/10 flex items-center justify-center mb-6">
+            <i class="fas fa-globe text-gold"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold mb-3">Web Development</h3>
+          <p class="text-slate text-sm leading-relaxed mb-6">Full-featured web applications built with modern frameworks. Fast, responsive, and production-ready.</p>
+          <a href="#contact" class="font-mono text-xs text-gold tracking-wider uppercase hover:opacity-70 transition-opacity flex items-center gap-2">
+            Learn More <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card bg-mist p-8 reveal" style="transition-delay: 0.1s;">
+          <div class="w-12 h-12 bg-gold/10 flex items-center justify-center mb-6">
+            <i class="fas fa-plug text-gold"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold mb-3">API Development</h3>
+          <p class="text-slate text-sm leading-relaxed mb-6">RESTful and GraphQL APIs that scale. Authentication, rate limiting, documentation — all included.</p>
+          <a href="#contact" class="font-mono text-xs text-gold tracking-wider uppercase hover:opacity-70 transition-opacity flex items-center gap-2">
+            Learn More <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card bg-mist p-8 reveal" style="transition-delay: 0.2s;">
+          <div class="w-12 h-12 bg-gold/10 flex items-center justify-center mb-6">
+            <i class="fas fa-palette text-gold"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold mb-3">UI Implementation</h3>
+          <p class="text-slate text-sm leading-relaxed mb-6">Translating Figma designs into pixel-perfect, accessible, and animated interfaces that delight users.</p>
+          <a href="#contact" class="font-mono text-xs text-gold tracking-wider uppercase hover:opacity-70 transition-opacity flex items-center gap-2">
+            Learn More <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card bg-mist p-8 reveal" style="transition-delay: 0.3s;">
+          <div class="w-12 h-12 bg-gold/10 flex items-center justify-center mb-6">
+            <i class="fas fa-database text-gold"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold mb-3">Database Design</h3>
+          <p class="text-slate text-sm leading-relaxed mb-6">Schema architecture, migrations, query optimization, and data modeling for long-term scalability.</p>
+          <a href="#contact" class="font-mono text-xs text-gold tracking-wider uppercase hover:opacity-70 transition-opacity flex items-center gap-2">
+            Learn More <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       PROJECTS
+  ══════════════════════════════════════════════════ -->
+  <section id="projects" class="py-32 bg-mist">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-20 reveal">
+        <p class="section-label mb-4">Selected Work</p>
+        <h2 class="font-display text-5xl md:text-6xl font-black mb-4">
+          Recent <span class="italic text-gold">Projects</span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- Project 1 -->
+        <div class="project-card reveal">
+          <div class="relative h-48 bg-gradient-to-br from-mist-2 to-ink overflow-hidden group">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-chart-line text-6xl text-gold/20 group-hover:scale-110 transition-transform duration-500"></i>
+            </div>
+            <div class="overlay absolute inset-0 bg-gold/10 flex items-center justify-center gap-4">
+              <a href="#" class="w-10 h-10 bg-ink/80 flex items-center justify-center hover:text-gold transition-colors" title="Live">
+                <i class="fas fa-external-link-alt text-sm"></i>
+              </a>
+              <a href="#" class="w-10 h-10 bg-ink/80 flex items-center justify-center hover:text-gold transition-colors" title="GitHub">
+                <i class="fab fa-github text-sm"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex gap-2 mb-3">
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">React</span>
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">Node.js</span>
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">PostgreSQL</span>
+            </div>
+            <h3 class="font-display text-xl font-bold mb-2">FinanceFlow Dashboard</h3>
+            <p class="text-slate text-sm leading-relaxed">Real-time financial analytics SaaS with multi-tenant architecture, serving 15k active users daily.</p>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card reveal" style="transition-delay: 0.1s;">
+          <div class="relative h-48 bg-gradient-to-br from-mist-2 to-ink overflow-hidden group">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-shopping-bag text-6xl text-gold/20 group-hover:scale-110 transition-transform duration-500"></i>
+            </div>
+            <div class="overlay absolute inset-0 bg-gold/10 flex items-center justify-center gap-4">
+              <a href="#" class="w-10 h-10 bg-ink/80 flex items-center justify-center hover:text-gold transition-colors" title="Live">
+                <i class="fas fa-external-link-alt text-sm"></i>
+              </a>
+              <a href="#" class="w-10 h-10 bg-ink/80 flex items-center justify-center hover:text-gold transition-colors" title="GitHub">
+                <i class="fab fa-github text-sm"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex gap-2 mb-3">
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">Next.js</span>
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">Stripe</span>
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">Prisma</span>
+            </div>
+            <h3 class="font-display text-xl font-bold mb-2">Artisan Commerce</h3>
+            <p class="text-slate text-sm leading-relaxed">E-commerce platform for independent artisans. Custom storefront builder with inventory management.</p>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card reveal" style="transition-delay: 0.2s;">
+          <div class="relative h-48 bg-gradient-to-br from-mist-2 to-ink overflow-hidden group">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-comments text-6xl text-gold/20 group-hover:scale-110 transition-transform duration-500"></i>
+            </div>
+            <div class="overlay absolute inset-0 bg-gold/10 flex items-center justify-center gap-4">
+              <a href="#" class="w-10 h-10 bg-ink/80 flex items-center justify-center hover:text-gold transition-colors" title="Live">
+                <i class="fas fa-external-link-alt text-sm"></i>
+              </a>
+              <a href="#" class="w-10 h-10 bg-ink/80 flex items-center justify-center hover:text-gold transition-colors" title="GitHub">
+                <i class="fab fa-github text-sm"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex gap-2 mb-3">
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">Socket.io</span>
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">Redis</span>
+              <span class="geo-badge bg-mist-2 px-2 py-0.5 text-xs font-mono text-slate">Vue.js</span>
+            </div>
+            <h3 class="font-display text-xl font-bold mb-2">Relay Chat</h3>
+            <p class="text-slate text-sm leading-relaxed">Real-time messaging application with channels, threads, and end-to-end encryption. 99.9% uptime.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-12 reveal">
+        <a href="#" class="inline-flex items-center gap-3 border border-gold/40 text-gold px-8 py-3 font-mono text-sm tracking-wide uppercase hover:bg-gold/10 transition-colors">
+          <span>View All Projects</span>
+          <i class="fas fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════════════════ -->
+  <section id="contact" class="py-32">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="grid lg:grid-cols-2 gap-20">
+
+        <!-- Left -->
+        <div class="reveal">
+          <p class="section-label mb-4">Get In Touch</p>
+          <h2 class="font-display text-5xl md:text-6xl font-black mb-6 leading-tight">
+            Let's Build<br />
+            <span class="italic text-gold">Something</span>
+          </h2>
+          <p class="text-slate leading-relaxed mb-10 max-w-sm">
+            Whether it's a new project, a collaboration, or just a conversation about code — I'd love to hear from you.
+          </p>
+
+          <!-- Contact details -->
+          <div class="space-y-5 mb-10">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 border border-mist-2 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-envelope text-gold text-xs"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-slate tracking-wider uppercase mb-0.5">Email</div>
+                <a href="mailto:hello@alexcarter.dev" class="text-sm hover:text-gold transition-colors gold-line">hello@alexcarter.dev</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 border border-mist-2 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-map-marker-alt text-gold text-xs"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-slate tracking-wider uppercase mb-0.5">Location</div>
+                <span class="text-sm">San Francisco, CA · Remote-friendly</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 border border-mist-2 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-clock text-gold text-xs"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-slate tracking-wider uppercase mb-0.5">Response Time</div>
+                <span class="text-sm">Usually within 24 hours</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social links -->
+          <div class="flex items-center gap-4">
+            <a href="#" class="w-10 h-10 border border-mist-2 flex items-center justify-center text-slate hover:text-gold hover:border-gold/40 transition-all" aria-label="GitHub">
+              <i class="fab fa-github text-sm"></i>
+            </a>
+            <a href="#" class="w-10 h-10 border border-mist-2 flex items-center justify-center text-slate hover:text-gold hover:border-gold/40 transition-all" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in text-sm"></i>
+            </a>
+            <a href="#" class="w-10 h-10 border border-mist-2 flex items-center justify-center text-slate hover:text-gold hover:border-gold/40 transition-all" aria-label="Twitter">
+              <i class="fab fa-x-twitter text-sm"></i>
+            </a>
+            <a href="#" class="w-10 h-10 border border-mist-2 flex items-center justify-center text-slate hover:text-gold hover:border-gold/40 transition-all" aria-label="Dribbble">
+              <i class="fab fa-dribbble text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="reveal" style="transition-delay: 0.2s;">
+          <form id="contact-form" novalidate class="space-y-5">
+
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block font-mono text-xs text-slate tracking-widest uppercase mb-2">Name *</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" class="form-input" required />
+                <p class="error-msg text-xs text-red-400 mt-1 hidden">Please enter your name.</p>
+              </div>
+              <div>
+                <label class="block font-mono text-xs text-slate tracking-widest uppercase mb-2">Email *</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" class="form-input" required />
+                <p class="error-msg text-xs text-red-400 mt-1 hidden">Please enter a valid email.</p>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs text-slate tracking-widest uppercase mb-2">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Project Inquiry" class="form-input" />
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs text-slate tracking-widest uppercase mb-2">Message *</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." class="form-input resize-none" required></textarea>
+              <p class="error-msg text-xs text-red-400 mt-1 hidden">Please enter your message.</p>
+            </div>
+
+            <button type="submit" id="submit-btn"
+              class="geo-badge w-full flex items-center justify-center gap-3 bg-gold text-ink py-4 font-mono text-sm font-medium tracking-wide uppercase hover:bg-gold-light transition-colors">
+              <span id="submit-text">Send Message</span>
+              <i class="fas fa-paper-plane text-xs" id="submit-icon"></i>
+            </button>
+
+            <!-- Success message -->
+            <div id="success-msg" class="hidden text-center border border-green-500/20 bg-green-500/10 p-4">
+              <i class="fas fa-check-circle text-green-400 mb-2"></i>
+              <p class="text-sm text-green-400 font-mono">Message sent! I'll be in touch soon.</p>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════ -->
+  <footer class="border-t border-mist-2 py-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span class="geo-badge bg-mist-2 px-3 py-1.5 text-xs font-mono text-gold tracking-widest uppercase">AC</span>
+      <p class="font-mono text-xs text-slate tracking-wider">
+        © 2025 Alex Carter · Built with care & caffeine
+      </p>
+      <div class="flex items-center gap-6">
+        <a href="#home"     class="font-mono text-xs text-slate hover:text-gold transition-colors tracking-wider uppercase">Home</a>
+        <a href="#about"    class="font-mono text-xs text-slate hover:text-gold transition-colors tracking-wider uppercase">About</a>
+        <a href="#contact"  class="font-mono text-xs text-slate hover:text-gold transition-colors tracking-wider uppercase">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════
+       SCROLL TO TOP
+  ══════════════════════════════════════════════════ -->
+  <button id="scroll-top" aria-label="Scroll to top"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    class="fixed bottom-8 right-8 z-40 w-12 h-12 bg-gold text-ink flex items-center justify-center hover:bg-gold-light transition-colors">
+    <i class="fas fa-arrow-up text-sm"></i>
+  </button>
+
+    <!-- ══════════════════════════════════════════════════
+         JAVASCRIPT
+    ══════════════════════════════════════════════════ -->
+  <script src="js/app.js"></script>
+  </body>
+  </html>
