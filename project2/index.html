@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hawa about me</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Custom cursor style -->
+  <style>
+    body { cursor: none; }
+  </style>
+
+  <script defer src="/project2/app.js"></script>
+</head>
+
+<body class="bg-[#212121] text-white min-h-screen flex flex-col items-center">
+
+  <!-- Custom Cursor -->
+  <div
+    id="cursor"
+    class="fixed top-0 left-0 w-10 h-10 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
+  >
+    <img
+      id="cursor-img"
+      src="https://creativemeadow.com/wp-content/uploads/2023/08/12553-scaled.jpeg"
+      alt="cursor"
+      class="w-full h-full object-contain select-none"
+      draggable="false"
+    />
+  </div>
+
+  <!-- Top Image Banner -->
+  <img 
+    class="w-full h-max object-cover shadow-lg"
+    src="images/IMG_3203.jpeg"
+    alt="banner"
+  >
+
+  <!-- Header -->
+  <header class="text-center mt-6">
+    <h1 class="text-3xl font-extrabold text-blue-500">Hawa Chimosa</h1>
+    <h3 class="text-lg font-semibold mt-2">To the woman that I love</h3>
+  </header>
+
+  <!-- Content Section -->
+  <div class="max-w-4xl w-full mt-10 px-4 space-y-10">
+
+    <!-- Image + Text -->
+    <div class="bg-[#2a2a2a] rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row">
+      
+      <img 
+        src="https://us.feliway.com/cdn/shop/articles/10_fascinating_facts_about_black_cats-3.jpg?v=1712147891"
+        alt="cat"
+        class="md:w-1/2 h-64 object-cover"
+      >
+
+      <div class="p-6 flex items-center">
+        <p class="text-gray-300 text-lg">
+          Aya is her beloved ❤️
+        </p>
+      </div>
+      <div class="bg-[#2a2a2a] rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row">
+      
+      <img 
+        src="https://cdn.momsdish.com/wp-content/uploads/2020/01/Steak-Sandwich-Recipe-12-1024x1536.jpg"
+        alt="steak sandwich"
+        class="md:w-1/2 h-64 object-cover"
+      >
+
+      <div class="p-6 flex items-center">
+        <p class="text-gray-300 text-lg">
+          This woman loves — and when I say LOVES, I mean LOVESSSS!! — her steak sandwich 😄
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Second Card -->
+    <div class="bg-[#2a2a2a] rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row">
+      
+      <img 
+        src="https://cdn.momsdish.com/wp-content/uploads/2020/01/Steak-Sandwich-Recipe-12-1024x1536.jpg"
+        alt="steak sandwich"
+        class="md:w-1/2 h-64 object-cover"
+      >
+
+      <div class="p-6 flex items-center">
+        <p class="text-gray-300 text-lg">
+          This woman loves — and when I say LOVES, I mean LOVESSSS!! — her steak sandwich 😄
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

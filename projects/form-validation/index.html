@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">
+      Create Account
+    </h2>
+
+    <form class="space-y-4">
+      
+      <!-- Name -->
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Full Name</label>
+        <input 
+          type="text" 
+          placeholder="John Doe"
+          id="full_name"
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+        >
+        <span class="text-red-500 text-sm" id="full_name_error"></span>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Email</label>
+        <input 
+          type="email" 
+          id="email"
+          placeholder="you@example.com"
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+        >
+        <span class="text-red-500 text-sm" id="email_error"></span>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          placeholder="••••••••"
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+        >
+        <span class="text-red-500 text-sm" id="password_error"></span>
+      </div>
+
+      <!-- Confirm Password -->
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Confirm Password</label>
+        <input 
+          type="password" 
+          placeholder="••••••••"
+          id="confirm_password"
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+        >
+        <span class="text-red-500 text-sm" id="confirm_password_error"></span>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit"
+        id="summit_btn"
+        class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
+      >
+        Register
+      </button>
+
+    </form>
+
+    <!-- Login Link -->
+    <p class="text-sm text-gray-600 text-center mt-6">
+      Already have an account?
+      <a href="#" class="text-black font-medium hover:underline">Login</a>
+    </p>
+  </div>
+
+</body>
+</html>

@@ -61,17 +61,122 @@
     </aside>
 
     <main>
-        <di class="relative inline-block" ID="dropdown">
-            <button
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChatGPT Dropdown</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#212121] p-6 font-sans">
+
+  <main>
+    <div class="relative inline-block" id="dropdown">
+
+      <!-- Trigger -->
+      <button
         onclick="toggleDropdown()"
-        class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-white/10 transition-colors duration-150"
-    >
-    <h1 class="text-lg font-semibold text-black tracking-tight">CHATGPT</h1>
-            <div 
-            id="menu"
-            class="absolute top-[calc(100%+6px)] left-0 z-50 min-w-[220px] bg-[#2f2f2f] border border-white/10 rounded-xl p-1.5 shadow-2xl opacity-0 -translate-y-1 scale-[0.98] pointer-events-none transition-all duration-150"
-            role="menu"
-        >
+        class="flex items-center gap-1 px-7 py-4 rounded-lg hover:bg-blue-500/10 transition-colors duration-150"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <h1 class="text-md font-semibold text-black tracking-tight">ChatGPT</h1>
+        <svg id="chevron" class="w-4 h-4 text-black transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+
+      <!-- Dropdown Menu -->
+      <div
+        id="menu"
+        class="absolute top-[calc(100%+6px)] left-0 z-50 min-w-[220px] bg-[#2f2f2f] border border-white/10 rounded-xl p-1.5 shadow-2xl opacity-0 -translate-y-1 scale-[0.98] pointer-events-none transition-all duration-150"
+        role="menu"
+      >
+
+        <!-- ChatGPT -->
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-white/10 cursor-pointer transition-colors duration-100 text-[#ececec] text-sm" role="menuitem">
+          <svg class="w-[18px] h-[18px] text-[#8e8ea0] shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+          <span class="flex-1">ChatGPT</span>
+        </div>
+
+        <!-- Divider -->
+        <div class="h-px bg-white/10 my-1"></div>
+
+        <!-- Settings -->
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-white/10 cursor-pointer transition-colors duration-100 text-[#ececec] text-sm" role="menuitem">
+          <svg class="w-[18px] h-[18px] text-[#8e8ea0] shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+          </svg>
+          <span class="flex-1">Settings</span>
+        </div>
+
+        <!-- Divider -->
+        <div class="h-px bg-white/10 my-1"></div>
+
+        <!-- Log in -->
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-white/10 cursor-pointer transition-colors duration-100 text-[#ececec] text-sm" role="menuitem">
+          <svg class="w-[18px] h-[18px] text-[#8e8ea0] shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          <span class="flex-1">Log in</span>
+        </div>
+
+        <!-- Create an account -->
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#10a37f]/10 cursor-pointer transition-colors duration-100 text-[#10a37f] text-sm font-medium" role="menuitem">
+          <svg class="w-[18px] h-[18px] shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="flex-1">Create an account</span>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const dropdown = document.getElementById('dropdown');
+    const menu = document.getElementById('menu');
+    const chevron = document.getElementById('chevron');
+    const trigger = dropdown.querySelector('button');
+
+    function toggleDropdown() {
+      const isOpen = menu.classList.contains('opacity-100');
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        menu.classList.remove('opacity-0', '-translate-y-1', 'scale-[0.98]', 'pointer-events-none');
+        menu.classList.add('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+        chevron.classList.add('rotate-180');
+        trigger.setAttribute('aria-expanded', true);
+      }
+    }
+
+    function closeDropdown() {
+      menu.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+      menu.classList.add('opacity-0', '-translate-y-1', 'scale-[0.98]', 'pointer-events-none');
+      chevron.classList.remove('rotate-180');
+      trigger.setAttribute('aria-expanded', false);
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) closeDropdown();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDropdown();
+    });
+  </script>
+  <div class="flex items-center justify-end gap-2 overflow-x-hidden"></div>
+  <div class="shrink-0"></div>
+
+    <button class="btn relative group-focus-within/dialog:focus-visible:[outline-width:1.5px]" data-testid="login-button">
+        <div class="flex items-center justify-center">login-button</div>
+    </button>
+</body>
+</html>
     </main>
     
 </body>
