@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Temperature Converter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'DM Mono', monospace; }
+    h1, .display-font { font-family: 'Syne', sans-serif; }
+    .result-animate { animation: pop 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes pop {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    select option { background: black; }
+  </style>
+</head>
+<body class="bg-[#0f0f1a] min-h-screen flex items-center justify-center px-4 py-10">
+
+  <div class="w-full max-w-lg">
+
+    <!-- Header with image from roadmap.sh -->
+    <div class="mb-8 text-center">
+      <div class="inline-flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-xl shadow-lg shadow-orange-500/30">
+          🌡️
+        </div>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">Temp Converter</h1>
+      </div>
+      <p class="text-[#8e8ea0] text-sm">Convert between Celsius, Fahrenheit & Kelvin</p>
+    </div>
+
+    <!-- Mockup image from roadmap.sh -->
+    <div class="mb-8 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+      <img
+        src="https://assets.roadmap.sh/guest/temperature-converter-8omel.png"
+        alt="Temperature Converter Mockup"
+        class="w-full object-cover"
+        onerror="this.parentElement.classList.add('hidden')"
+      />
+    </div>
+
+    <!-- Converter Card -->
+    <div class="bg-[#1a1a2e] border border-white/10 rounded-2xl p-6 shadow-2xl">
+
+      <!-- Temperature Input -->
+      <div class="mb-5">
+        <label class="text-xs text-[#8e8ea0] uppercase tracking-widest mb-2 block">Temperature Value</label>
+        <input
+          id="tempInput"
+          type="number"
+          placeholder="e.g. 100"
+          oninput="checkFields()"
+          class="w-full bg-[#0f0f1a] border border-white/10 rounded-xl px-4 py-3 text-white text-base placeholder-[#444] outline-none focus:border-orange-400 transition-colors duration-200"
+        />
+      </div>
+
+      <!-- From / To selects -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="text-xs text-[#8e8ea0] uppercase tracking-widest mb-2 block">From</label>
+          <select
+            id="fromUnit"
+            onchange="checkFields()"
+            class="w-full bg-[#0f0f1a] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-orange-400 transition-colors duration-200 appearance-none"
+          >
+            <option value="">Select unit</option>
+            <option value="celsius">Celsius (°C)</option>
+            <option value="fahrenheit">Fahrenheit (°F)</option>
+            <option value="kelvin">Kelvin (K)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs text-[#8e8ea0] uppercase tracking-widest mb-2 block">To</label>
+          <select
+            id="toUnit"
+            onchange="checkFields()"
+            class="w-full bg-[#0f0f1a] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-orange-400 transition-colors duration-200 appearance-none"
+          >
+            <option value="">Select unit</option>
+            <option value="celsius">Celsius (°C)</option>
+            <option value="fahrenheit">Fahrenheit (°F)</option>
+            <option value="kelvin">Kelvin (K)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Convert Button -->
+      <button
+        id="convertBtn"
+        onclick="convert()"
+        disabled
+        class="w-full py-3 rounded-xl font-semibold text-sm tracking-wide transition-all duration-200
+               bg-gradient-to-r from-orange-400 to-red-500 text-white shadow-lg shadow-orange-500/20
+               disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none
+               hover:enabled:scale-[1.02] hover:enabled:shadow-orange-500/40 active:enabled:scale-[0.98]"
+      >
+        Convert →
+      </button>
+
+      <!-- Result -->
+      <div id="resultBox" class="hidden mt-5">
+        <div class="bg-[#0f0f1a] border border-orange-400/30 rounded-xl p-5 text-center result-animate">
+          <p class="text-[#8e8ea0] text-xs uppercase tracking-widest mb-1">Result</p>
+          <p id="resultText" class="text-white text-3xl font-extrabold display-font"></p>
+          <p id="formulaText" class="text-[#8e8ea0] text-xs mt-2"></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer credit -->
+    <p class="text-center text-[#444] text-xs mt-6">
+      Project from <a href="https://roadmap.sh/projects/temperature-converter" target="_blank" class="text-orange-400 hover:underline">roadmap.sh</a>
+    </p>
+
+  </div>
+
+  <script>
+    function checkFields() {
+      const val = document.getElementById('tempInput').value.trim();
+      const from = document.getElementById('fromUnit').value;
+      const to = document.getElementById('toUnit').value;
+      document.getElementById('convertBtn').disabled = !(val !== '' && from && to);
+    }
+
+    function convert() {
+      const value = parseFloat(document.getElementById('tempInput').value);
+      const from = document.getElementById('fromUnit').value;
+      const to = document.getElementById('toUnit').value;
+
+      if (from === to) {
+        showResult(value, to, 'Same unit — no conversion needed.');
+        return;
+      }
+
+      // Convert to Celsius first
+      let celsius;
+      if (from === 'celsius')     celsius = value;
+      if (from === 'fahrenheit')  celsius = (value - 32) * 5 / 9;
+      if (from === 'kelvin')      celsius = value - 273.15;
+
+      // Then convert to target
+      let result;
+      let formula;
+      if (to === 'celsius') {
+        result = celsius;
+        formula = from === 'fahrenheit' ? `(${value}°F - 32) × 5/9` : `${value}K - 273.15`;
+      }
+      if (to === 'fahrenheit') {
+        result = celsius * 9 / 5 + 32;
+        formula = from === 'celsius' ? `(${value}°C × 9/5) + 32` : `(${value}K - 273.15) × 9/5 + 32`;
+      }
+      if (to === 'kelvin') {
+        result = celsius + 273.15;
+        formula = from === 'celsius' ? `${value}°C + 273.15` : `(${value}°F - 32) × 5/9 + 273.15`;
+      }
+
+      const unitSymbols = { celsius: '°C', fahrenheit: '°F', kelvin: 'K' };
+      showResult(parseFloat(result.toFixed(4)), to, `Formula: ${formula}`);
+    }
+
+    function showResult(value, unit, formula) {
+      const unitSymbols = { celsius: '°C', fahrenheit: '°F', kelvin: 'K' };
+      const box = document.getElementById('resultBox');
+      const text = document.getElementById('resultText');
+      const formulaEl = document.getElementById('formulaText');
+
+      text.textContent = `${value} ${unitSymbols[unit] || ''}`;
+      formulaEl.textContent = formula;
+
+      box.classList.remove('hidden');
+      // Re-trigger animation
+      text.classList.remove('result-animate');
+      void text.offsetWidth;
+      text.classList.add('result-animate');
+    }
+  </script>
+
+</body>
+</html>

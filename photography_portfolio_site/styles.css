@@ -1,0 +1,27 @@
+body {
+  min-width: 320px;
+}
+
+.hero-frame {
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 86% 100%, 0 100%);
+}
+
+@media (max-width: 767px) {
+  .hero-frame {
+    clip-path: none;
+  }
+}
+
+a,
+button {
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+img {
+  display: block;
+}

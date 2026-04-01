@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kinetic | Photography Portfolio</title>
+  <meta
+    name="description"
+    content="Kinetic is a cinematic photography portfolio landing page built as a static site with Tailwind CSS."
+  >
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: "#090909",
+            ember: "#ff3b30",
+            emberSoft: "#ff8b83",
+            ash: "#b4b4b4",
+            slate: "#161616",
+            steel: "#252525"
+          },
+          fontFamily: {
+            display: ["Epilogue", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          },
+          boxShadow: {
+            glow: "0 0 60px rgba(255, 59, 48, 0.18)"
+          },
+          backgroundImage: {
+            grid: "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-obsidian font-body text-white selection:bg-ember selection:text-white">
+  <div class="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(255,59,48,0.16),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(255,59,48,0.08),transparent_22%),linear-gradient(180deg,#050505,#090909_38%,#0b0b0b)]"></div>
+
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-obsidian/85 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+      <a href="#home" class="font-display text-xl font-black uppercase tracking-[0.3em] text-white">Kinetic</a>
+      <button
+        id="menu-button"
+        class="inline-flex h-11 w-11 items-center justify-center border border-white/15 text-white transition hover:border-ember hover:text-ember md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <span class="text-2xl leading-none">+</span>
+      </button>
+      <div class="hidden items-center gap-8 md:flex">
+        <a href="#portfolio" class="text-sm uppercase tracking-[0.25em] text-ash transition hover:text-ember">Portfolio</a>
+        <a href="#philosophy" class="text-sm uppercase tracking-[0.25em] text-ash transition hover:text-ember">Philosophy</a>
+        <a href="#highlights" class="text-sm uppercase tracking-[0.25em] text-ash transition hover:text-ember">Highlights</a>
+        <a href="#contact" class="text-sm uppercase tracking-[0.25em] text-ash transition hover:text-ember">Contact</a>
+        <a href="#contact" class="inline-flex items-center gap-2 border border-ember bg-ember px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:bg-transparent hover:text-ember">
+          Book Session
+        </a>
+      </div>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-[#0c0c0c] md:hidden">
+      <div class="flex flex-col px-5 py-5">
+        <a href="#portfolio" class="border-b border-white/10 py-4 uppercase tracking-[0.25em] text-ash transition hover:text-ember">Portfolio</a>
+        <a href="#philosophy" class="border-b border-white/10 py-4 uppercase tracking-[0.25em] text-ash transition hover:text-ember">Philosophy</a>
+        <a href="#highlights" class="border-b border-white/10 py-4 uppercase tracking-[0.25em] text-ash transition hover:text-ember">Highlights</a>
+        <a href="#contact" class="border-b border-white/10 py-4 uppercase tracking-[0.25em] text-ash transition hover:text-ember">Contact</a>
+        <a href="#contact" class="mt-5 inline-flex items-center justify-center border border-ember bg-ember px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:bg-transparent hover:text-ember">
+          Book Session
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="relative isolate overflow-hidden">
+      <div class="mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl items-end gap-12 px-5 py-12 md:px-8 md:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div class="order-2 max-w-3xl lg:order-1">
+          <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-emberSoft">Established MMXXIV</p>
+          <h1 class="font-display text-5xl font-black uppercase leading-[0.88] tracking-[-0.06em] text-white sm:text-6xl md:text-7xl lg:text-[7.5rem]">
+            Capturing
+            <span class="block text-ember">Raw</span>
+            Emotion
+          </h1>
+          <p class="mt-8 max-w-xl text-base leading-7 text-slate-300 md:text-lg">
+            Kinetic builds dark, emotionally charged visual stories across portraiture, street photography,
+            and cinematic editorial work.
+          </p>
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a href="#portfolio" class="inline-flex items-center justify-center gap-3 border border-ember bg-ember px-7 py-4 font-display text-sm font-bold uppercase tracking-[0.2em] text-white shadow-glow transition hover:bg-transparent hover:text-ember">
+              View Recent Work
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a href="#philosophy" class="inline-flex items-center justify-center gap-3 border border-white/15 px-7 py-4 font-display text-sm font-bold uppercase tracking-[0.2em] text-white transition hover:border-white hover:bg-white hover:text-black">
+              Our Philosophy
+            </a>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2">
+          <div class="hero-frame relative overflow-hidden border border-white/10 bg-slate">
+            <div class="absolute inset-0 bg-grid bg-[size:38px_38px] opacity-[0.08]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+            <img
+              src="assets/images/hero.jpg"
+              alt="Low-key cinematic portrait with dramatic lighting"
+              class="h-[58vh] w-full object-cover object-center md:h-[72vh]"
+            >
+            <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-6 border-t border-white/10 bg-black/35 p-5 backdrop-blur-sm">
+              <div>
+                <p class="text-[0.65rem] uppercase tracking-[0.45em] text-emberSoft">Featured Frame</p>
+                <p class="mt-2 font-display text-2xl font-extrabold uppercase tracking-[-0.04em]">Noir Portrait Study</p>
+              </div>
+              <div class="hidden text-right text-xs uppercase tracking-[0.35em] text-ash sm:block">
+                Sydney
+                <span class="mt-2 block text-white">2026 Collection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="mb-14 flex flex-col gap-6 md:mb-20 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emberSoft">Selected Work</p>
+          <h2 class="mt-3 font-display text-4xl font-black uppercase tracking-[-0.05em] md:text-6xl">Portfolio</h2>
+        </div>
+        <p class="max-w-md text-sm uppercase tracking-[0.26em] text-ash">
+          A curation of portrait, cinematic, and street studies built on contrast, texture, and silence.
+        </p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-3">
+        <article class="group overflow-hidden border border-white/10 bg-slate">
+          <div class="overflow-hidden">
+            <img src="assets/images/cinematic.jpg" alt="Cinematic street scene at night" class="h-[28rem] w-full object-cover transition duration-700 group-hover:scale-105">
+          </div>
+          <div class="space-y-4 p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-3xl font-extrabold uppercase tracking-[-0.04em]">Cinematic</h3>
+              <span class="text-xs uppercase tracking-[0.35em] text-emberSoft">01</span>
+            </div>
+            <p class="text-sm leading-7 text-ash">Neon reflections, controlled grain, and urban tension built into still frames.</p>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden border border-white/10 bg-[#111111] lg:translate-y-12">
+          <div class="overflow-hidden">
+            <img src="assets/images/portraits.jpg" alt="Editorial portrait with sharp textures" class="h-[28rem] w-full object-cover transition duration-700 group-hover:scale-105">
+          </div>
+          <div class="space-y-4 p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-3xl font-extrabold uppercase tracking-[-0.04em]">Portraits</h3>
+              <span class="text-xs uppercase tracking-[0.35em] text-emberSoft">02</span>
+            </div>
+            <p class="text-sm leading-7 text-ash">Close studies of identity shaped by directional light, shadow, and gesture.</p>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden border border-white/10 bg-slate">
+          <div class="overflow-hidden">
+            <img src="assets/images/street.jpg" alt="Brutalist architecture in hard shadow" class="h-[28rem] w-full object-cover transition duration-700 group-hover:scale-105">
+          </div>
+          <div class="space-y-4 p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-3xl font-extrabold uppercase tracking-[-0.04em]">Street</h3>
+              <span class="text-xs uppercase tracking-[0.35em] text-emberSoft">03</span>
+            </div>
+            <p class="text-sm leading-7 text-ash">Architecture, movement, and found moments translated into stark compositions.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="philosophy" class="border-y border-white/10 bg-black/40">
+      <div class="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+        <div>
+          <div class="mb-8 h-1 w-24 bg-ember"></div>
+          <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emberSoft">Manifesto</p>
+          <h2 class="mt-5 font-display text-4xl font-black uppercase tracking-[-0.05em] md:text-6xl">
+            Photography is not about what you see.
+          </h2>
+        </div>
+        <div class="space-y-8">
+          <p class="text-xl leading-9 text-white/90 md:text-2xl md:leading-10">
+            It is about what you feel when the light breaks, when texture fights back, and when silence says more than expression.
+          </p>
+          <p class="max-w-2xl text-base leading-8 text-ash">
+            The visual language is deliberately brutalist: minimal chrome, rigid structure, image-first storytelling, and a red signal line that cuts through the darkness only when it matters.
+          </p>
+          <a href="#contact" class="inline-flex items-center gap-3 font-display text-sm font-bold uppercase tracking-[0.22em] text-ember transition hover:gap-5">
+            Discuss a commission
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="highlights" class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <p class="text-center text-xs font-semibold uppercase tracking-[0.4em] text-emberSoft">Publications & Clients</p>
+      <div class="mt-10 grid grid-cols-2 gap-6 border-y border-white/10 py-12 text-center sm:grid-cols-3 lg:grid-cols-5">
+        <span class="font-display text-3xl font-black uppercase tracking-[0.18em] text-white/55">Vogue</span>
+        <span class="font-display text-3xl font-black uppercase tracking-[0.18em] text-white/55">Behance</span>
+        <span class="font-display text-3xl font-black uppercase tracking-[0.18em] text-white/55">Leica</span>
+        <span class="font-display text-3xl font-black uppercase tracking-[0.18em] text-white/55">Adobe</span>
+        <span class="font-display text-3xl font-black uppercase tracking-[0.18em] text-white/55">WGSN</span>
+      </div>
+    </section>
+
+    <section id="contact" class="mx-auto max-w-7xl px-5 pb-24 md:px-8 md:pb-32">
+      <div class="overflow-hidden border border-white/10 bg-[linear-gradient(135deg,rgba(255,59,48,0.2),rgba(255,59,48,0.03)_34%,rgba(255,255,255,0.02)_100%)]">
+        <div class="grid gap-10 px-6 py-16 md:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-14 lg:py-20">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emberSoft">Booking</p>
+            <h2 class="mt-4 font-display text-5xl font-black uppercase tracking-[-0.06em] md:text-7xl">Get In Touch</h2>
+            <p class="mt-6 max-w-xl text-base leading-8 text-slate-300">
+              Available for editorials, campaigns, portrait commissions, and gallery collaborations across Australia and internationally.
+            </p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <a href="https://instagram.com" class="group border border-white/10 bg-black/35 p-6 transition hover:border-ember">
+              <p class="text-xs uppercase tracking-[0.4em] text-emberSoft">Social</p>
+              <p class="mt-6 font-display text-2xl font-extrabold uppercase tracking-[-0.04em]">Instagram</p>
+              <p class="mt-3 text-sm text-ash">Behind the scenes, live shoots, and current work.</p>
+              <span class="mt-8 inline-block text-ember transition group-hover:translate-x-1">↗</span>
+            </a>
+            <a href="https://behance.net" class="group border border-white/10 bg-black/35 p-6 transition hover:border-ember">
+              <p class="text-xs uppercase tracking-[0.4em] text-emberSoft">Portfolio</p>
+              <p class="mt-6 font-display text-2xl font-extrabold uppercase tracking-[-0.04em]">Behance</p>
+              <p class="mt-3 text-sm text-ash">Extended project breakdowns and editorial case studies.</p>
+              <span class="mt-8 inline-block text-ember transition group-hover:translate-x-1">↗</span>
+            </a>
+            <a href="mailto:hello@kinetic-portfolio.com" class="group border border-white/10 bg-black/35 p-6 transition hover:border-ember sm:col-span-2">
+              <p class="text-xs uppercase tracking-[0.4em] text-emberSoft">Direct</p>
+              <p class="mt-6 font-display text-2xl font-extrabold uppercase tracking-[-0.04em]">hello@kinetic-portfolio.com</p>
+              <p class="mt-3 text-sm text-ash">Send project details, location, dates, and visual references.</p>
+              <span class="mt-8 inline-block text-ember transition group-hover:translate-x-1">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-black/50">
+    <div class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-8 text-sm text-ash md:flex-row md:items-center md:justify-between md:px-8">
+      <p class="font-display text-base font-black uppercase tracking-[0.26em] text-white">Kinetic Photography</p>
+      <p class="uppercase tracking-[0.3em]">© 2026 Kinetic. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

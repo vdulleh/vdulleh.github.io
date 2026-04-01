@@ -11,3 +11,6 @@ document.querySelector("body").addEventListener("mousemove", function(event) {
     console.log(event.clientX, event.clientY);
 });
 
+setInterval(() => {
+    document.querySelector("body").style.backgroundColor = document.querySelector("body").style.backgroundColor == "black" ? "pink" : "black";
+}, 10000);

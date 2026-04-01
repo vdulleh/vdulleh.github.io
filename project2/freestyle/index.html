@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seclusive Fitness</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --blue: blue; }
+    body { font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
+    .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+    .blue { color: blue; }
+    .bg-blue { background-color: blue; }
+    .border-blue { border-color: blue; }
+
+    /* Nav link underline animation */
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:1px; background:#c9a84c; transition: width 0.25s ease; }
+    .nav-link:hover::after { width:100%; }
+
+    /* Hero grain overlay */
+    .grain::before {
+      content:''; position:absolute; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.18; pointer-events:none; z-index:1;
+    }
+
+    /* Scroll fade-in */
+    .fade-in { opacity:0; transform:translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+
+    /* Class card hover */
+    .class-card:hover .class-overlay { opacity:1; }
+    .class-overlay { transition: opacity 0.3s ease; }
+
+    /* Modal */
+    .modal { display:none; }
+    .modal.active { display:flex; }
+
+    /* Tab */
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+
+    /* Video play button pulse */
+    @keyframes pulse-ring {
+      0% { transform:scale(1); opacity:0.8; }
+      100% { transform:scale(1.6); opacity:0; }
+    }
+    .pulse-ring { animation: pulse-ring 1.8s ease-out infinite; }
+
+    /* Schedule active day */
+    .day-btn.active { background-color:white; color:blue; }
+  </style>
+</head>
+<body class="bg-blue-600 text-white overflow-x-hidden">
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-blue-600/90 backdrop-blur-sm border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+    <a href="#" class="display text-2xl tracking-widest"><span class="white">S</span>ECLUSIVE <span class="white">FITNESS</span></a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex items-center gap-8 text-sm text-white/70 font-medium">
+      <a href="#classes" class="nav-link hover:text-white transition-colors">Classes</a>
+      <a href="#schedule" class="nav-link hover:text-white transition-colors">Schedule</a>
+      <a href="#media" class="nav-link hover:text-white transition-colors">Media</a>
+      <a href="#enquire" class="nav-link hover:text-white transition-colors">Enquire</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button onclick="openModal('loginModal')" class="hidden md:block text-sm text-white/70 hover:text-white transition-colors font-medium">Log in</button>
+      <button onclick="openModal('signupModal')" class="bg-blue-600 text-white text-sm font-semibold px-5 py-2 rounded-full hover:brightness-110 transition-all">Join Now</button>
+      <!-- Mobile menu toggle -->
+      <button onclick="toggleMobileMenu()" class="md:hidden text-white/70 hover:text-white">
+        <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-blue-600 border-t border-white/5 px-6 py-4 flex flex-col gap-4 text-sm text-white/70 font-medium">
+    <a href="#classes" onclick="toggleMobileMenu()" class="hover:text-white transition-colors">Classes</a>
+    <a href="#schedule" onclick="toggleMobileMenu()" class="hover:text-white transition-colors">Schedule</a>
+    <a href="#media" onclick="toggleMobileMenu()" class="hover:text-white transition-colors">Media</a>
+    <a href="#enquire" onclick="toggleMobileMenu()" class="hover:text-white transition-colors">Enquire</a>
+    <button onclick="openModal('loginModal')" class="text-left hover:text-white transition-colors">Log in</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="relative grain min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background image via Unsplash -->
+  <div class="absolute inset-0 z-0">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1800&q=80" alt="gym" class="w-full h-full object-cover opacity-30"/>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]"></div>
+  </div>
+
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+    <p class="text-gold text-xs tracking-[0.4em] uppercase mb-5 font-medium">Premium Private Training</p>
+    <h1 class="display text-7xl md:text-[10rem] leading-none mb-6 text-white">
+      SECLUSIVE<br/><span class="gold">FITNESS</span>
+    </h1>
+    <p class="text-white/60 text-lg md:text-xl font-light max-w-xl mx-auto mb-10 leading-relaxed">
+      Where elite performance meets total privacy. Train harder. Live better. Stay exclusive.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button onclick="openModal('signupModal')" class="bg-gold text-white font-semibold px-8 py-4 rounded-full text-sm tracking-wide hover:brightness-110 transition-all hover:scale-105">
+        Create Account
+      </button>
+      <a href="#classes" class="border border-white/20 text-white font-medium px-8 py-4 rounded-full text-sm tracking-wide hover:border-gold hover:text-gold transition-all">
+        Explore Classes
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+    <span class="text-xs tracking-widest text-white/50">SCROLL</span>
+    <div class="w-px h-10 bg-gradient-to-b from-white/50 to-transparent"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ STATS ═══════════════════════════════ -->
+<section class="border-y border-white/5 bg-[#0f0f0f]">
+  <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <div class="fade-in"><p class="display text-5xl gold">500+</p><p class="text-white/40 text-sm mt-1 tracking-wide">MEMBERS</p></div>
+    <div class="fade-in" style="transition-delay:0.1s"><p class="display text-5xl gold">12</p><p class="text-white/40 text-sm mt-1 tracking-wide">CLASSES / WEEK</p></div>
+    <div class="fade-in" style="transition-delay:0.2s"><p class="display text-5xl gold">8</p><p class="text-white/40 text-sm mt-1 tracking-wide">ELITE TRAINERS</p></div>
+    <div class="fade-in" style="transition-delay:0.3s"><p class="display text-5xl gold">5★</p><p class="text-white/40 text-sm mt-1 tracking-wide">RATED STUDIO</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CLASSES ═══════════════════════════════ -->
+<section id="classes" class="py-24 px-6 max-w-7xl mx-auto">
+  <div class="mb-14 fade-in">
+    <p class="text-gold text-xs tracking-[0.4em] uppercase mb-3">What We Offer</p>
+    <h2 class="display text-6xl md:text-7xl text-white">OUR CLASSES</h2>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- Class Card -->
+    <div class="class-card relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer fade-in group">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="HIIT" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+      <div class="class-overlay absolute inset-0 bg-gold/10 opacity-0"></div>
+      <div class="absolute bottom-0 p-6">
+        <span class="text-gold text-xs tracking-widest uppercase">45 min</span>
+        <h3 class="display text-4xl mt-1">HIIT BLAST</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">High-intensity intervals to torch calories and push your limits.</p>
+        <span class="inline-block mt-3 text-xs border border-gold/40 text-gold px-3 py-1 rounded-full">Mon · Wed · Fri</span>
+      </div>
+    </div>
+
+    <div class="class-card relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer fade-in group" style="transition-delay:0.1s">
+      <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=600&q=80" alt="Strength" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+      <div class="class-overlay absolute inset-0 bg-gold/10 opacity-0"></div>
+      <div class="absolute bottom-0 p-6">
+        <span class="text-gold text-xs tracking-widest uppercase">60 min</span>
+        <h3 class="display text-4xl mt-1">POWER LIFT</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">Build raw strength with guided barbell and compound movements.</p>
+        <span class="inline-block mt-3 text-xs border border-gold/40 text-gold px-3 py-1 rounded-full">Tue · Thu · Sat</span>
+      </div>
+    </div>
+
+    <div class="class-card relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer fade-in group" style="transition-delay:0.2s">
+      <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" alt="Yoga" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+      <div class="class-overlay absolute inset-0 bg-gold/10 opacity-0"></div>
+      <div class="absolute bottom-0 p-6">
+        <span class="text-gold text-xs tracking-widest uppercase">50 min</span>
+        <h3 class="display text-4xl mt-1">FLOW & FLEX</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">Yoga-inspired mobility work to recover and restore movement.</p>
+        <span class="inline-block mt-3 text-xs border border-gold/40 text-gold px-3 py-1 rounded-full">Wed · Sat · Sun</span>
+      </div>
+    </div>
+
+    <div class="class-card relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer fade-in group">
+      <img src="https://images.unsplash.com/photo-1609899517757-91ed31cdce69?w=600&q=80" alt="Boxing" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+      <div class="class-overlay absolute inset-0 bg-gold/10 opacity-0"></div>
+      <div class="absolute bottom-0 p-6">
+        <span class="text-gold text-xs tracking-widest uppercase">45 min</span>
+        <h3 class="display text-4xl mt-1">COMBAT CORE</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">Boxing-inspired conditioning class — no experience needed.</p>
+        <span class="inline-block mt-3 text-xs border border-gold/40 text-gold px-3 py-1 rounded-full">Mon · Thu</span>
+      </div>
+    </div>
+
+    <div class="class-card relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer fade-in group" style="transition-delay:0.1s">
+      <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&q=80" alt="Cycling" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+      <div class="class-overlay absolute inset-0 bg-gold/10 opacity-0"></div>
+      <div class="absolute bottom-0 p-6">
+        <span class="text-gold text-xs tracking-widest uppercase">45 min</span>
+        <h3 class="display text-4xl mt-1">SPIN CYCLE</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">High-energy indoor cycling with immersive music and coaching.</p>
+        <span class="inline-block mt-3 text-xs border border-gold/40 text-gold px-3 py-1 rounded-full">Tue · Fri · Sun</span>
+      </div>
+    </div>
+
+    <div class="class-card relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer fade-in group" style="transition-delay:0.2s">
+      <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=80" alt="PT" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+      <div class="class-overlay absolute inset-0 bg-gold/10 opacity-0"></div>
+      <div class="absolute bottom-0 p-6">
+        <span class="text-gold text-xs tracking-widest uppercase">60 min</span>
+        <h3 class="display text-4xl mt-1">1-ON-1 PT</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">Private sessions tailored entirely to your goals. Exclusively yours.</p>
+        <span class="inline-block mt-3 text-xs border border-gold/40 text-gold px-3 py-1 rounded-full">By Appointment</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SCHEDULE ═══════════════════════════════ -->
+<section id="schedule" class="py-24 bg-[#0f0f0f]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-14 fade-in">
+      <p class="text-gold text-xs tracking-[0.4em] uppercase mb-3">Weekly Timetable</p>
+      <h2 class="display text-6xl md:text-7xl text-white">SCHEDULE</h2>
+    </div>
+
+    <!-- Day Tabs -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button onclick="showDay('mon')" class="day-btn active text-sm font-semibold px-5 py-2 rounded-full border border-white/10 hover:border-gold transition-all" data-day="mon">MON</button>
+      <button onclick="showDay('tue')" class="day-btn text-sm font-semibold px-5 py-2 rounded-full border border-white/10 hover:border-gold transition-all text-white/60" data-day="tue">TUE</button>
+      <button onclick="showDay('wed')" class="day-btn text-sm font-semibold px-5 py-2 rounded-full border border-white/10 hover:border-gold transition-all text-white/60" data-day="wed">WED</button>
+      <button onclick="showDay('thu')" class="day-btn text-sm font-semibold px-5 py-2 rounded-full border border-white/10 hover:border-gold transition-all text-white/60" data-day="thu">THU</button>
+      <button onclick="showDay('fri')" class="day-btn text-sm font-semibold px-5 py-2 rounded-full border border-white/10 hover:border-gold transition-all text-white/60" data-day="fri">FRI</button>
+      <button onclick="showDay('sat')" class="day-btn text-sm font-semibold px-5 py-2 rounded-full border border-white/10 hover:border-gold transition-all text-white/60" data-day="sat">SAT</button>
+      <button onclick="showDay('sun')" class="day-btn text-sm font-semibold px-5 py-2 rounded-full border border-white/10 hover:border-gold transition-all text-white/60" data-day="sun">SUN</button>
+    </div>
+
+    <!-- Schedule Tables -->
+    <div id="day-mon" class="tab-content active">
+      <div class="grid gap-3">
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">06:00 AM</span><div><p class="font-semibold">HIIT Blast</p><p class="text-white/40 text-xs mt-0.5">Coach Marcus</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">09:00 AM</span><div><p class="font-semibold">Combat Core</p><p class="text-white/40 text-xs mt-0.5">Coach Leila</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-yellow-500/30 text-yellow-400 px-3 py-1 rounded-full">3 Spots Left</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">06:00 PM</span><div><p class="font-semibold">HIIT Blast</p><p class="text-white/40 text-xs mt-0.5">Coach Marcus</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day-tue" class="tab-content">
+      <div class="grid gap-3">
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">07:00 AM</span><div><p class="font-semibold">Power Lift</p><p class="text-white/40 text-xs mt-0.5">Coach Jayden</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">60 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">12:00 PM</span><div><p class="font-semibold">Spin Cycle</p><p class="text-white/40 text-xs mt-0.5">Coach Priya</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-red-500/30 text-red-400 px-3 py-1 rounded-full">Full</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">07:00 PM</span><div><p class="font-semibold">Power Lift</p><p class="text-white/40 text-xs mt-0.5">Coach Jayden</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">60 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day-wed" class="tab-content">
+      <div class="grid gap-3">
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">06:00 AM</span><div><p class="font-semibold">HIIT Blast</p><p class="text-white/40 text-xs mt-0.5">Coach Marcus</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-yellow-500/30 text-yellow-400 px-3 py-1 rounded-full">2 Spots Left</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">10:00 AM</span><div><p class="font-semibold">Flow & Flex</p><p class="text-white/40 text-xs mt-0.5">Coach Zara</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">50 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day-thu" class="tab-content">
+      <div class="grid gap-3">
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">08:00 AM</span><div><p class="font-semibold">Combat Core</p><p class="text-white/40 text-xs mt-0.5">Coach Leila</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">06:30 PM</span><div><p class="font-semibold">Power Lift</p><p class="text-white/40 text-xs mt-0.5">Coach Jayden</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">60 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day-fri" class="tab-content">
+      <div class="grid gap-3">
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">06:00 AM</span><div><p class="font-semibold">HIIT Blast</p><p class="text-white/40 text-xs mt-0.5">Coach Marcus</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">12:30 PM</span><div><p class="font-semibold">Spin Cycle</p><p class="text-white/40 text-xs mt-0.5">Coach Priya</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-yellow-500/30 text-yellow-400 px-3 py-1 rounded-full">4 Spots Left</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day-sat" class="tab-content">
+      <div class="grid gap-3">
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">08:00 AM</span><div><p class="font-semibold">Power Lift</p><p class="text-white/40 text-xs mt-0.5">Coach Jayden</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">60 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">10:00 AM</span><div><p class="font-semibold">Flow & Flex</p><p class="text-white/40 text-xs mt-0.5">Coach Zara</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">50 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">12:00 PM</span><div><p class="font-semibold">Spin Cycle</p><p class="text-white/40 text-xs mt-0.5">Coach Priya</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-yellow-500/30 text-yellow-400 px-3 py-1 rounded-full">2 Spots Left</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day-sun" class="tab-content">
+      <div class="grid gap-3">
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">09:00 AM</span><div><p class="font-semibold">Flow & Flex</p><p class="text-white/40 text-xs mt-0.5">Coach Zara</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">50 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="flex items-center justify-between bg-[#161616] border border-white/5 rounded-xl px-6 py-4 hover:border-gold/30 transition-all">
+          <div class="flex items-center gap-6"><span class="text-gold font-mono text-sm w-20">11:00 AM</span><div><p class="font-semibold">Spin Cycle</p><p class="text-white/40 text-xs mt-0.5">Coach Priya</p></div></div>
+          <div class="flex items-center gap-4"><span class="text-white/40 text-xs">45 min</span><span class="text-xs border border-green-500/30 text-green-400 px-3 py-1 rounded-full">Available</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ MEDIA ═══════════════════════════════ -->
+<section id="media" class="py-24 px-6 max-w-7xl mx-auto">
+  <div class="mb-14 fade-in">
+    <p class="text-gold text-xs tracking-[0.4em] uppercase mb-3">Inside Seclusive</p>
+    <h2 class="display text-6xl md:text-7xl text-white">VIDEOS & PHOTOS</h2>
+  </div>
+
+  <!-- Media Tabs -->
+  <div class="flex gap-4 mb-8">
+    <button onclick="switchMedia('videos')" id="tab-videos" class="text-sm font-semibold px-6 py-2 rounded-full bg-gold text-[#0a0a0a] transition-all">Videos</button>
+    <button onclick="switchMedia('photos')" id="tab-photos" class="text-sm font-semibold px-6 py-2 rounded-full border border-white/20 text-white/60 hover:border-gold hover:text-gold transition-all">Photos</button>
+  </div>
+
+  <!-- Videos -->
+  <div id="media-videos" class="tab-content active">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Video Card -->
+      <div class="relative rounded-2xl overflow-hidden aspect-video bg-[#161616] group cursor-pointer fade-in" onclick="alert('Video player coming soon — sign up to access all content!')">
+        <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?w=600&q=80" alt="video" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"/>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="relative">
+            <div class="pulse-ring absolute inset-0 rounded-full border-2 border-gold"></div>
+            <div class="w-14 h-14 rounded-full bg-gold/90 flex items-center justify-center shadow-xl">
+              <svg class="w-5 h-5 text-[#0a0a0a] ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80">
+          <p class="font-semibold text-sm">HIIT Blast — Full Session</p>
+          <p class="text-white/40 text-xs mt-0.5">45 min · Coach Marcus</p>
+        </div>
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden aspect-video bg-[#161616] group cursor-pointer fade-in" style="transition-delay:0.1s" onclick="alert('Video player coming soon — sign up to access all content!')">
+        <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&q=80" alt="video" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"/>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="relative">
+            <div class="pulse-ring absolute inset-0 rounded-full border-2 border-gold"></div>
+            <div class="w-14 h-14 rounded-full bg-gold/90 flex items-center justify-center shadow-xl">
+              <svg class="w-5 h-5 text-[#0a0a0a] ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80">
+          <p class="font-semibold text-sm">Power Lift — Beginner Guide</p>
+          <p class="text-white/40 text-xs mt-0.5">30 min · Coach Jayden</p>
+        </div>
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden aspect-video bg-[#161616] group cursor-pointer fade-in" style="transition-delay:0.2s" onclick="alert('Video player coming soon — sign up to access all content!')">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" alt="video" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"/>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="relative">
+            <div class="pulse-ring absolute inset-0 rounded-full border-2 border-gold"></div>
+            <div class="w-14 h-14 rounded-full bg-gold/90 flex items-center justify-center shadow-xl">
+              <svg class="w-5 h-5 text-[#0a0a0a] ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80">
+          <p class="font-semibold text-sm">Flow & Flex — Morning Routine</p>
+          <p class="text-white/40 text-xs mt-0.5">50 min · Coach Zara</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photos -->
+  <div id="media-photos" class="tab-content">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+      <div class="aspect-square rounded-xl overflow-hidden fade-in"><img src="https://images.unsplash.com/photo-1609899517757-91ed31cdce69?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="gym"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ ENQUIRE ═══════════════════════════════ -->
+<section id="enquire" class="py-24 bg-[#0f0f0f]">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="mb-14 fade-in text-center">
+      <p class="text-gold text-xs tracking-[0.4em] uppercase mb-3">Get In Touch</p>
+      <h2 class="display text-6xl md:text-7xl text-white">ENQUIRE</h2>
+      <p class="text-white/40 mt-4 text-base">Have a question? We'll get back to you within 24 hours.</p>
+    </div>
+
+    <div class="bg-[#161616] border border-white/5 rounded-2xl p-8 fade-in">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">First Name</label>
+          <input type="text" placeholder="Alex" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors"/>
+        </div>
+        <div>
+          <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Last Name</label>
+          <input type="text" placeholder="Johnson" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors"/>
+        </div>
+      </div>
+      <div class="mb-5">
+        <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Email</label>
+        <input type="email" placeholder="alex@example.com" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors"/>
+      </div>
+      <div class="mb-5">
+        <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Subject</label>
+        <select class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition-colors appearance-none">
+          <option value="">Select a topic</option>
+          <option>Membership Pricing</option>
+          <option>Class Booking</option>
+          <option>Personal Training</option>
+          <option>Facility Tour</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="mb-6">
+        <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Message</label>
+        <textarea rows="4" placeholder="Tell us what you're looking for..." class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors resize-none"></textarea>
+      </div>
+      <button onclick="submitEnquiry()" class="w-full bg-gold text-[#0a0a0a] font-semibold py-4 rounded-xl text-sm tracking-wide hover:brightness-110 transition-all hover:scale-[1.01]">
+        Send Enquiry →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer class="border-t border-white/5 py-12 px-6">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <p class="display text-xl tracking-widest"><span class="gold">S</span>ECLUSIVE <span class="gold">FITNESS</span></p>
+    <p class="text-white/30 text-xs">© 2025 Seclusive Fitness. All rights reserved.</p>
+    <div class="flex gap-6 text-xs text-white/30">
+      <a href="#" class="hover:text-gold transition-colors">Privacy</a>
+      <a href="#" class="hover:text-gold transition-colors">Terms</a>
+      <a href="#enquire" class="hover:text-gold transition-colors">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════ SIGN UP MODAL ═══════════════════════════════ -->
+<div id="signupModal" class="modal fixed inset-0 z-[100] items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+  <div class="bg-[#161616] border border-white/10 rounded-2xl p-8 w-full max-w-md relative">
+    <button onclick="closeModal('signupModal')" class="absolute top-4 right-4 text-white/40 hover:text-white transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <p class="text-gold text-xs tracking-[0.3em] uppercase mb-2">Welcome</p>
+    <h3 class="display text-4xl mb-6">CREATE ACCOUNT</h3>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">First Name</label>
+        <input type="text" placeholder="Alex" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors"/>
+      </div>
+      <div>
+        <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Last Name</label>
+        <input type="text" placeholder="Johnson" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors"/>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Email</label>
+      <input type="email" placeholder="alex@example.com" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors"/>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Password</label>
+      <input type="password" placeholder="••••••••" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition-colors"/>
+    </div>
+    <div class="mb-6">
+      <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Membership Plan</label>
+      <select class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition-colors">
+        <option>Basic — $49/mo</option>
+        <option>Elite — $89/mo</option>
+        <option>Seclusive — $149/mo</option>
+      </select>
+    </div>
+    <button onclick="handleSignup()" class="w-full bg-gold text-white font-semibold py-3.5 rounded-xl text-sm tracking-wide hover:brightness-110 transition-all">
+      Create My Account →
+    </button>
+    <p class="text-center text-white/30 text-xs mt-4">Already a member? <button onclick="openModal('loginModal');closeModal('signupModal')" class="text-gold hover:underline">Log in</button></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ LOGIN MODAL ═══════════════════════════════ -->
+<div id="loginModal" class="modal fixed inset-0 z-[100] items-center justify-center bg-blue-600/70 backdrop-blur-sm px-4">
+  <div class="bg-[#161616] border border-white/10 rounded-2xl p-8 w-full max-w-md relative">
+    <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-white/40 hover:text-white transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <p class="text-gold text-xs tracking-[0.3em] uppercase mb-2">Members Only</p>
+    <h3 class="display text-4xl mb-6">WELCOME BACK</h3>
+    <div class="mb-4">
+      <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Email</label>
+      <input type="email" placeholder="alex@example.com" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold transition-colors"/>
+    </div>
+    <div class="mb-6">
+      <label class="text-xs text-white/40 uppercase tracking-widest block mb-2">Password</label>
+      <input type="password" placeholder="••••••••" class="w-full bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition-colors"/>
+    </div>
+    <button onclick="handleLogin()" class="w-full bg-gold text-[#0a0a0a] font-semibold py-3.5 rounded-xl text-sm tracking-wide hover:brightness-110 transition-all">
+      Log In →
+    </button>
+    <p class="text-center text-white/30 text-xs mt-4">New here? <button onclick="openModal('signupModal');closeModal('loginModal')" class="text-gold hover:underline">Create account</button></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SUCCESS TOAST ═══════════════════════════════ -->
+<div id="toast" class="fixed bottom-6 right-6 z-[200] bg-[#1a1a1a] border border-gold/30 text-white text-sm px-5 py-3 rounded-xl shadow-2xl opacity-0 translate-y-4 transition-all duration-300 pointer-events-none flex items-center gap-3">
+  <span class="text-gold text-lg">✓</span>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+  // ─── Modal ───
+  function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow='hidden'; }
+  function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow=''; }
+  document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if(e.target===m) { m.classList.remove('active'); document.body.style.overflow=''; } }));
+
+  // ─── Toast ───
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.remove('opacity-0','translate-y-4');
+    t.classList.add('opacity-100','translate-y-0');
+    setTimeout(() => { t.classList.remove('opacity-100','translate-y-0'); t.classList.add('opacity-0','translate-y-4'); }, 3000);
+  }
+
+  function handleSignup() { closeModal('signupModal'); showToast('Account created! Welcome to Seclusive Fitness 🏋️'); }
+  function handleLogin() { closeModal('loginModal'); showToast('Welcome back! 👊'); }
+  function submitEnquiry() { showToast('Enquiry sent! We\'ll be in touch within 24 hours.'); }
+
+  // ─── Schedule tabs ───
+  function showDay(day) {
+    document.querySelectorAll('.tab-content[id^="day-"]').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.day-btn').forEach(btn => {
+      btn.classList.remove('active','text-[#0a0a0a]');
+      btn.classList.add('text-white/60');
+    });
+    document.getElementById('day-' + day).classList.add('active');
+    const btn = document.querySelector('[data-day="' + day + '"]');
+    btn.classList.add('active');
+    btn.classList.remove('text-white/60');
+  }
+
+  // ─── Media tabs ───
+  function switchMedia(type) {
+    document.querySelectorAll('#media-videos, #media-photos').forEach(el => el.classList.remove('active'));
+    document.getElementById('media-' + type).classList.add('active');
+    document.getElementById('tab-videos').className = 'text-sm font-semibold px-6 py-2 rounded-full border border-white/20 text-white/60 hover:border-gold hover:text-gold transition-all';
+    document.getElementById('tab-photos').className = 'text-sm font-semibold px-6 py-2 rounded-full border border-white/20 text-white/60 hover:border-gold hover:text-gold transition-all';
+    document.getElementById('tab-' + type).className = 'text-sm font-semibold px-6 py-2 rounded-full bg-gold text-[#0a0a0a] transition-all';
+  }
+
+  // ─── Mobile menu ───
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  }
+
+  // ─── Scroll fade-in ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
